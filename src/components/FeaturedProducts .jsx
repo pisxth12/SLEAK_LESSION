@@ -7,7 +7,7 @@ import Error from './ui/Error';
 const FeaturedProducts  = () => {
     const { products, error, loading} = useProducts();  
     if(loading) return <Loading/>;
-    if(error) return <Error error={error} fetchProducts={fetchProducts}/>
+    if(error) return <Error error={error} />
 
 
   return (

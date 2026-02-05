@@ -1,4 +1,7 @@
+
+import { User } from "lucide-react";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -12,7 +15,11 @@ const Navbar = () => {
         {/* Menu */}
         <ul className="hidden md:flex items-center gap-6 text-sm font-medium">
           <li className="cursor-pointer hover:text-gray-500">Home</li>
-          <li className="cursor-pointer hover:text-gray-500">Products</li>
+          
+            <Link to={`/users`}>
+              <User/>
+            </Link>
+        
           <li className="cursor-pointer hover:text-gray-500">About</li>
         </ul>
 
