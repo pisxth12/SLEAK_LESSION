@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   return (
@@ -15,9 +16,9 @@ const ProductCard = ({ product }) => {
 
       <p className="text-lg font-bold mb-4">${product.price}</p>
 
-      <button className="mt-auto bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition">
-        View
-      </button>
+      <Link to={`/products/${product.id}`} className="mt-auto bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition" >
+        <button className="text-center flex w-full justify-center" >View Details</button>
+      </Link>
     </div>
   );
 };

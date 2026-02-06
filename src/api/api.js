@@ -5,10 +5,19 @@ const API_BASE_URL =
 export const getAllProducts = async () => {
   const response = await fetch(`${API_BASE_URL}/products`);
   if (!response.ok) {
-    throw new Error("blah blah blah");
+    throw new Error("Error fetching products");
   }
   return response.json();
 };
+
+//Get product by id
+export const getProductById = async () => {
+  const response = await fetch(`${API_BASE_URL}/products/${id}`);
+  if(!response.ok) {
+    throw new Error("Error fetching product by id")
+  }
+  return response.json();
+}
 
 export const getAllUsers = async () => {
   const res = await fetch(`${API_BASE_URL}/users`);
