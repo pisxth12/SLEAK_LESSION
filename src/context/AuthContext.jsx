@@ -10,7 +10,7 @@ const AuthContext = createContext();export const AuthProvider = ({ children }) =
 
     const login =  async () => {
         try{
-            ``
+
             const res = await Login(username,password);
             localStorage.setItem("token",res.token);
         }catch(err){
