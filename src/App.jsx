@@ -1,57 +1,31 @@
-
+import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import AppProvider from './providers/AppProvider'
-import MainLayout from './components/layout/MainLayout'
+import MainLayout from './layouts/MainLayout'
 import HomePage from './pages/HomePage'
+import About from './pages/About'
 import ProductDetail from './components/ProductDetail'
-import UsersLayout from './components/layout/UsersLayout'
-import UserPage from './pages/UserPage'
-import AuthLayout from './components/layout/AuthLayout'
-import Login from './components/Login'
-
-
+import { CartProvider } from './context/CartContext'
+import Cart from './components/Cart'
+import Login from './pages/Login'
+import Products from './pages/Products'
+import Contact from './pages/Contact'
 
 const App = () => {
   return (
     <BrowserRouter>
-      <AppProvider>
+      <CartProvider>
         <Routes>
-          <Route path='/' element={
-            <MainLayout>
-                <HomePage/>
-             </MainLayout>}/>
-
-            <Route
-              path="/products/:id"
-              element={
-                <MainLayout>
-                  <ProductDetail />
-                </MainLayout>
-              }
-            />
-
-            <Route
-            path="/users"
-            element={
-              <UsersLayout>
-                <UserPage />
-              </UsersLayout>
-            }
-          />
-
-           <Route
-            path="/login"
-            element={
-              <AuthLayout>
-                <Login />
-              </AuthLayout>
-            }
-          />
-
-
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<HomePage />} />
+            <Route path="products" element={<Products/>} />
+            <Route path="about" element={<About/>} />
+            <Route path='product/:id' element={<ProductDetail/>}/>  
+            <Route path="contact" element={<Contact/>} />
+            <Route path='cart' element={<Cart/>}/>
+          </Route>
+          <Route path='/login' element={<Login/>}/>
         </Routes>
-
-      </AppProvider>
+      </CartProvider>
     </BrowserRouter>
   )
 }

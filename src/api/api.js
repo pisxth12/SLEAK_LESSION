@@ -11,7 +11,7 @@ export const getAllProducts = async () => {
 };
 
 //Get product by id
-export const getProductById = async () => {
+export const getProductById = async (id) => {
   const response = await fetch(`${API_BASE_URL}/products/${id}`);
   if(!response.ok) {
     throw new Error("Error fetching product by id")

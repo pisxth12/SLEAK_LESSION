@@ -1,69 +1,66 @@
-import React from 'react'
-import { useProducts } from '../hooks/useProducts';
-import Loading from './ui/Loading';
-import Error from './ui/Error';
-import { useParams } from 'react-router-dom';
-import { useCart } from '../hooks/useCart';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useCart } from "../hooks/useCart";
 
 const ProductDetail = () => {
-    const { id } = useParams();
-    const { products, loading, error} = useProducts();
-    const { addToCart , removeFromCart} = useCart();
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const {  addToCart } = useCart();
 
-    const product = products.find(p=> p.id === parseInt(id));
+  useEffect(() => {
+    fetch(`https://fakestoreapi.com/products/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setProduct(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  },[id]);
+
+  if (loading) {
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <p className="text-center text-xl font-semibold">Loading product...</p>
+    </div>
+  );
+}
 
 
-
-    if(loading) return <Loading/>;
-    if(error) return <Error error={error}/>
-    
+  if (!product) {
+    return <p className="text-center mt-10 text-red-500">Product not found!</p>;
+  }
 
   return (
-      <div className="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-10">
+    <div className="max-w-6xl mx-auto p-4 md:p-8 flex flex-col md:flex-row gap-8">
       
-      {/* Image */}
-      <div className="bg-white rounded-lg shadow p-6 flex items-center justify-center">
+      {/* Product Image */}
+      <div className="flex-1 flex justify-center items-center">
         <img
           src={product?.image}
           alt={product?.title}
-          className="h-96 object-contain"
+          className="w-full max-w-md h-96 object-contain rounded-lg shadow-lg"
         />
       </div>
 
-      {/* Info */}
-      <div className="space-y-4">
-        <h1 className="text-2xl font-bold">{product?.title}</h1>
-
-        <p className="text-gray-500 capitalize">
-          Category: {product?.category}
-        </p>
-
-        <div className="flex items-center gap-4">
-          <span className="text-3xl font-semibold text-green-600">
-            ${product?.price}
-          </span>
-          <span className="text-sm bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">
-            ⭐ {product?.rating.rate} / 5
-          </span>
+      {/* Product Info */}
+      <div className="flex-1 flex flex-col justify-between">
+        <div>
+          <h1 className="text-3xl font-bold mb-4">{product?.title}</h1>
+          <p className="text-xl text-blue-600 font-semibold mb-4">${product?.price}</p>
+          <p className="text-gray-700 mb-6">{product?.description}</p>
         </div>
 
-        <p className="text-gray-700 leading-relaxed">
-          {product?.description}
-        </p>
-
-        {/* Actions */}
-        <div className="flex gap-4 pt-4">
-          <button onClick={()=> addToCart(product)} className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800">
-            Add to Cart
-          </button>
-
-          <button className="border border-gray-300 px-6 py-3 rounded-lg hover:bg-gray-100">
-            Buy Now
-          </button>
-        </div>
+        {/* Add to Cart */}
+        <button onClick={() => addToCart(product)}className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition w-full md:w-auto">
+          Add to Cart
+        </button>
       </div>
     </div>
   );
 };
 
-export default ProductDetail
+export default ProductDetail;
