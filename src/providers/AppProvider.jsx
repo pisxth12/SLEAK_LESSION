@@ -1,19 +1,10 @@
-import { AuthProvider } from "../context/AuthContext"
-import { CartProvider } from "../context/CartContext"
-import { ProductProvider } from "../context/ProductContext"
-import { UserProvider } from "../context/UserContext"
+import { AuthProvider } from "../contexts/AuthProvider";
 
 const AppProvider = ({children}) => {
     return (
-        <ProductProvider>
-            <UserProvider>
-                <CartProvider>
-                    <AuthProvider>
-                        {children}
-                    </AuthProvider>
-                </CartProvider>
-            </UserProvider>
-        </ProductProvider>
+        <AuthProvider>
+                {children}
+        </AuthProvider>
     )
 }
 
