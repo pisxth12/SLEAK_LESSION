@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
+import {  useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const { signIn, loading } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("mor_2314");
+  const [password, setPassword] = useState("83r5^_");
+
+   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signIn({ username: email, password });
-    setEmail("");
-    setPassword("");
+    signIn({ username: username, password });
+
+    navigate("/");
   };
 
   return (
@@ -27,8 +30,8 @@ function LoginForm() {
         <input
           type="text"
           placeholder="Enter your username"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           className="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 

@@ -1,9 +1,13 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import { useCart } from "../hooks/useCart";
+import { useAuth } from "../hooks/useAuth";
 
 
 const Navbar = () => {
+  const {cart } = useCart();
+  const { user, signOut} = useAuth();
    
   return (
     <nav className="bg-black/90 text-white shadow-md">
@@ -12,7 +16,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link to="/" className="text-2xl font-bold">
-              Hehe
+              {user ? `Welcome, ${user.username}` : "MyShop" }
             </Link>
           </div>
 
@@ -21,6 +25,7 @@ const Navbar = () => {
             <Link to="/" className="hover:text-gray-200">
               Home
             </Link>
+          
             <Link to="/products" className="hover:text-gray-200">
               Products
             </Link>
@@ -35,11 +40,15 @@ const Navbar = () => {
           <div className="flex items-center space-x-4">
             <Link to="/cart" className="hover:text-gray-200 relative">
               🛒 Cart
-            <span className="bg-red-500 rounded-full absolute -top-3 -right-2 h-4 w-4 flex items-center justify-center text-xs text-white">0</span>
+            <span className="bg-red-500 rounded-full absolute -top-3 -right-2 h-4 w-4 flex items-center justify-center text-xs text-white">{cart.length}</span>
             </Link>
             <Link to="/login" className="hover:text-gray-200">
               Log In
             </Link>
+
+            <button onClick={signOut} className="hover:text-gray-200">
+              Logout
+            </button>
           </div>
         </div>
       </div>

@@ -7,3 +7,5 @@ export const getProducts = () => {
 export const getProductById = (id) => {
   return api.get(`/products/${id}`);
 };
+
+
