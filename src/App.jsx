@@ -4,6 +4,7 @@ import MainLayout from './layout/MainLayout'
 import HomePage from './pages/HomePage'
 import AppProvider from './providers/AppProvider'
 import LoginForm from './components/LoginForm'
+import NotFound from './ui/NotFound'
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
             <Route index element={<HomePage/>}/>
             <Route path='login' element={<LoginForm/>}/>
         </Route>
+        <Route path='*' element={<NotFound/>}/>
       </Routes>
       </AppProvider>
     </BrowserRouter>

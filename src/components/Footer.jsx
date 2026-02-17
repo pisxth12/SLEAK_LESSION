@@ -3,6 +3,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const currentYears = new Date().getFullYear();
+
+  const age = currentYears - 2006;
+  
   return (
     <footer className="bg-black text-white ">
       <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
@@ -10,7 +14,7 @@ const Footer = () => {
           {/* Left */}
           <div className="mb-6 md:mb-0">
             <h1 className="text-xl font-bold mb-2">MyShop</h1>
-            <p className="text-gray-400">© 2026 MyShop. All rights reserved.</p>
+            <p className="text-gray-400">© {age} MyShop. All rights reserved.</p>
           </div>
 
           {/* Center Links */}
